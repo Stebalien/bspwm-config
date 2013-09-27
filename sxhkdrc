@@ -1,0 +1,78 @@
+super + shift + {h,j,k,l}
+    dir={left,down,up,right}; \
+    bspc window $dir -w focused.manual || \
+    bspc window -w $dir.manual || \
+    bspc window -s $dir
+
+super + p
+    bspc window -w last.manual
+
+super + b
+    bspc window -s biggest
+
+super + s
+    bspc window -s last -f last
+
+super + f
+    bspc window -t floating
+
+super + grave
+    bspc desktop -f last
+
+super + {h,j,k,l}
+    bspc window -f {left,down,up,right}
+
+super + control + {h,j,k,l}
+    bspc window -e {left,down,up,right} push
+
+super + control + alt + {h,j,k,l}
+    bspc window -e {left,down,up,right} pull
+
+super + Tab
+    bspc window -f next
+
+super + alt + {h,j,k,l}
+    bspc window -p {left,down,up,right}
+
+super + control + r
+    bspc quit 0
+
+super + q
+    bspc window -c
+
+super + control + q
+    bspc window -k
+
+super + {o,i}
+    bspc desktop -f {next,prev}.occupied
+
+super + shift + {o,i}
+    bspc window -d {next,prev}
+
+super + ctrl + {o,i}
+    bspc monitor -f {next,prev}
+
+super + ctrl + shift + {o,i}
+    bspc window -m {next,prev} -f
+
+super + {Right,Left}
+    bspc desktop -f {next,prev}.occupied
+
+super + shift + {Right,Left}
+    bspc window -d {next,prev} -f
+
+super + {1-9,0}
+    bspc desktop -f $(bspc query -M -m)/{One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+
+super + shift + {1-9,0}
+    bspc window -d $(bspc query -M -m)/{One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+
+super + !button{1,3}
+    bspc pointer -t %i %i
+
+super + button{1,3}
+    bspc pointer -g {move,resize_corner}
+
+~button1
+    bspc pointer -g focus
+# vim: set ft=sxhkdrc foldmethod=marker :

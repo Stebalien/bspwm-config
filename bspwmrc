@@ -1,0 +1,55 @@
+#!/bin/bash
+
+
+sxhkd -c $XDG_CONFIG_HOME/bspwm/sxhkdrc &
+nitrogen --restore &
+
+
+# Setup monitors
+i=1
+for monitor in $(bspc query -M); do
+    bspc desktop $(bspc query -D -m $monitor | head -1) -n $i/One
+    bspc monitor $monitor \
+        -n "$i" \
+        -a $i/{Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+    let i++
+done
+NMON=$i
+unset i
+
+# Settings
+bspc config border_width            2
+bspc config focused_border_color    "#aa1111"
+bspc config window_gap              6
+bspc config top_padding             18
+bspc config auto_alternate          true
+bspc config split_ratio             0.61803398875
+bspc config borderless_monocle      true
+bspc config auto_cancel             true
+bspc config adaptative_raise        true
+bspc config gapless_monocle         true
+bspc config pointer_follows_monitor true
+bspc config focus_follows_pointer   true
+
+# Rules
+bspc rule -a pithos     -d $([[ $NMON -gt 1 ]] && echo '^1' || echo 'next.free')
+bspc rule -a ftjerm     --floating
+bspc rule -a keepassx   --floating
+bspc rule -a mpv        --floating
+
+# Focus last monitor
+bspc monitor -f ^$NMON
+
+# Panel
+if [ ! -e $XDG_RUNTIME_DIR/bspwm-panel-fifo ]; then
+    mkfifo $XDG_RUNTIME_DIR/bspwm-panel-fifo
+fi
+
+# Restore
+BSPWM_BACKUP="${BSPWM_BACKUP:-${XDG_CACHE_HOME:-$HOME/.cache}/bspwm-backup}"
+if [ -e "$BSPCWM_BACKUP" ]; then
+    bspc restore -T "$BSPCWM_BACKUP"
+    rm "$BSPCWM_BACKUP"
+else
+    bspc control --adopt-orphans
+fi
