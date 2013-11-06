@@ -11,7 +11,7 @@ super + b
     bspc window -s biggest
 
 super + s
-    bspc window -s last -f last
+    bspc window -t sticky
 
 super + f
     bspc window -t floating
