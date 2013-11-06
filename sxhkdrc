@@ -26,7 +26,8 @@ super + {h,j,k,l}
     bspc window -f {left,down,up,right}
 
 super + control + {h,j,k,l}
-    bspc window -e {left,down,up,right} push
+    {D1=left;D2=right;,D1=down;D2=up;,D1=up;D2=down;,D1=right;D2=left;} \
+    bspc window -e $D1 push || bspc window -e $D2 pull
 
 super + control + alt + {h,j,k,l}
     bspc window -e {left,down,up,right} pull
