@@ -16,6 +16,9 @@ super + s
 super + f
     bspc window -t floating
 
+super + shift + f
+    bspc window -t fullscreen
+
 super + grave
     bspc desktop -f last
 
