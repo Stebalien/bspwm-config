@@ -1,7 +1,5 @@
 #!/bin/bash
 
-
-sxhkd -c $XDG_CONFIG_HOME/bspwm/sxhkdrc &
 nitrogen --restore &
 
 
