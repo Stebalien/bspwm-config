@@ -17,6 +17,7 @@ for s in $STATE; do
     case $s in
         sticky)                 RULE+=("sticky=on")     ;;
         fullscreen)             RULE+=("fullscreen=on") ;;
+        modal)                  RULE+=("floating=on") ;;
     esac
 done
 
