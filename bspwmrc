@@ -3,10 +3,9 @@
 # Setup monitors
 i=1
 for monitor in $(bspc query -M); do
-    bspc desktop $(bspc query -D -m $monitor | head -1) -n $i/One
     bspc monitor $monitor \
         -n "$i" \
-        -a $i/{Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+        -d $i/{One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
     let i++
 done
 NMON=$i
