@@ -1,8 +1,5 @@
 #!/bin/bash
 
-nitrogen --restore &
-
-
 # Setup monitors
 i=1
 for monitor in $(bspc query -M); do
@@ -42,6 +39,8 @@ bspc monitor -f ^$NMON
 if [ ! -e $XDG_RUNTIME_DIR/bspwm-panel-fifo ]; then
     mkfifo $XDG_RUNTIME_DIR/bspwm-panel-fifo
 fi
+
+nitrogen --restore &
 
 # Restore
 BSPWM_BACKUP="${BSPWM_BACKUP:-${XDG_CACHE_HOME:-$HOME/.cache}/bspwm-backup}"
