@@ -23,7 +23,8 @@ done
 
 case "$INST" in
     pithos)
-        RULE+=("desktop=$([[ $(bspc query -M | wc -l) -gt 1 ]] && echo '^1' || echo 'next.free')") ;;
+        #RULE+=("desktop=$([[ $(bspc query -M | wc -l) -gt 1 ]] && echo '^1' || echo 'next.free')") ;;
+        RULE+=("desktop=1/Ten") ;;
     mpv|keepassx)
         RULE+=("floating=on") ;;
     dropterm|crx_nckgahadagoaajjgafhacjanaoiihapd)
