@@ -36,15 +36,13 @@ bspc rule -a mpv        --floating
 bspc monitor -f ^$NMON
 
 # Panel
-if [ ! -e $XDG_RUNTIME_DIR/bspwm-panel-fifo ]; then
-    mkfifo $XDG_RUNTIME_DIR/bspwm-panel-fifo
-fi
+[[ -e $XDG_RUNTIME_DIR/bspwm-panel-fifo ]] || mkfifo $XDG_RUNTIME_DIR/bspwm-panel-fifo
 
 nitrogen --restore &
 
 # Restore
 BSPWM_BACKUP="${BSPWM_BACKUP:-${XDG_CACHE_HOME:-$HOME/.cache}/bspwm-backup}"
-if [ -e "$BSPCWM_BACKUP" ]; then
+if [[ -e "$BSPCWM_BACKUP" ]]; then
     bspc restore -T "$BSPCWM_BACKUP"
     rm "$BSPCWM_BACKUP"
 else
