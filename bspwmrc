@@ -25,12 +25,7 @@ bspc config adaptative_raise            true
 bspc config gapless_monocle             true
 bspc config pointer_follows_monitor     true
 bspc config focus_follows_pointer       true
-
-# Rules
-bspc rule -a pithos     -d $([[ $NMON -gt 1 ]] && echo '^1' || echo 'next.free')
-bspc rule -a ftjerm     --floating
-bspc rule -a keepassx   --floating
-bspc rule -a mpv        --floating
+bspc config rule_command                "$XDG_CONFIG_HOME/bspwm/rules.sh %d"
 
 # Focus last monitor
 bspc monitor -f ^$NMON
