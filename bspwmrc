@@ -30,9 +30,6 @@ bspc config rule_command                "$XDG_CONFIG_HOME/bspwm/rules.sh %d"
 # Focus last monitor
 bspc monitor -f ^$NMON
 
-# Panel
-[[ -e $XDG_RUNTIME_DIR/bspwm-panel-fifo ]] || mkfifo $XDG_RUNTIME_DIR/bspwm-panel-fifo
-
 nitrogen --restore &
 
 # Restore
