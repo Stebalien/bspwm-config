@@ -1,42 +1,37 @@
 #!/bin/bash
 
+
+# Settings
+bspc config border_width                  2
+bspc config focused_border_color          "#aa1111"
+bspc config focused_sticky_border_color   "#aa1111"
+bspc config focused_private_border_color  "#005f87"
+bspc config window_gap                    6
+bspc config top_padding                   18
+bspc config auto_alternate                true
+bspc config borderless_monocle            true
+bspc config auto_cancel                   true
+bspc config adaptative_raise              true
+bspc config gapless_monocle               true
+bspc config pointer_follows_monitor       true
+bspc config ignore_ewhm_focus             true
+bspc config focus_follows_pointer         true
+bspc config external_rules_command        "$XDG_CONFIG_HOME/bspwm/rules.sh"
+
 # Setup monitors
 i=1
 for monitor in $(bspc query -M); do
     bspc monitor $monitor \
         -n "$i" \
-        -d $i/{One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+        -d {One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
     let i++
 done
-NMON=$i
 unset i
-
-# Settings
-bspc config border_width                2
-bspc config focused_border_color        "#aa1111"
-bspc config focused_sticky_border_color "#aa1111"
-bspc config window_gap                  6
-bspc config top_padding                 18
-bspc config auto_alternate              true
-bspc config split_ratio                 0.61803398875
-bspc config borderless_monocle          true
-bspc config auto_cancel                 true
-bspc config adaptative_raise            true
-bspc config gapless_monocle             true
-bspc config pointer_follows_monitor     true
-bspc config focus_follows_pointer       true
-bspc config rule_command                "$XDG_CONFIG_HOME/bspwm/rules.sh %d"
-
-# Focus last monitor
-bspc monitor -f ^$NMON
 
 nitrogen --restore &
 
 # Restore
-BSPWM_BACKUP="${BSPWM_BACKUP:-${XDG_CACHE_HOME:-$HOME/.cache}/bspwm-backup}"
-if [[ -e "$BSPCWM_BACKUP" ]]; then
-    bspc restore -T "$BSPCWM_BACKUP"
-    rm "$BSPCWM_BACKUP"
-else
-    bspc control --adopt-orphans
-fi
+#[[ -e "$BSPWM_HISTORY"  ]]  && { bspc restore -H "$BSPWM_HISTORY"   ; rm "$BSPWM_HISTORY" ;}
+#[[ -e "$BSPWM_TREE"     ]]  && { bspc restore -T "$BSPWM_TREE"      ; rm "$BSPWM_TREE"    ;}
+#[[ -e "$BSPWM_STACK"    ]]  && { bspc restore -S "$BSPWM_STACK"     ; rm "$BSPWM_STACK"   ;}
+bspc control --adopt-orphans

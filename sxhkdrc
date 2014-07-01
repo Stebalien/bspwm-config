@@ -7,17 +7,11 @@ super + shift + {h,j,k,l}
 super + m
     bspc window -w last.manual
 
+super + t ; {s,t,m,f}
+    bspc window -t {sticky,floating,fullscreen,private}
+
 super + b
     bspc window -s biggest
-
-super + s
-    bspc window -t sticky
-
-super + f
-    bspc window -t floating
-
-super + shift + f
-    bspc window -t fullscreen
 
 super + grave
     bspc desktop -f last
@@ -26,11 +20,11 @@ super + {h,j,k,l}
     bspc window -f {left,down,up,right}
 
 super + control + {h,j,k,l}
-    {D1=left;D2=right;,D1=down;D2=up;,D1=up;D2=down;,D1=right;D2=left;} \
-    bspc window -e $D1 push || bspc window -e $D2 pull
+    {D1=left;D2=right;INC=-10;,D1=down;D2=up;INC=+10;,D1=up;D2=down;INC=-10;,D1=right;D2=left;INC=+10;} \
+    bspc window -e $D1 $INC || bspc window -e $D2 $INC
 
 super + control + alt + {h,j,k,l}
-    bspc window -e {left,down,up,right} pull
+    bspc window -e {left +10,down -10,up +10,right -10}
 
 super + Tab
     bspc window -f next
@@ -39,7 +33,7 @@ super + alt + {h,j,k,l}
     bspc window -p {left,down,up,right}
 
 super + control + r
-    bspc quit 0
+    bspc quit 0;
 
 super + q
     bspc window -c
@@ -66,18 +60,21 @@ super + shift + {Right,Left}
     bspc window -d {next,prev} -f
 
 super + {1-9,0}
-    bspc desktop -f $(bspc query -M -m)/{One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+    bspc desktop -f "focused:^{1-9,10}"
 
 super + shift + {1-9,0}
-    bspc window -d $(bspc query -M -m)/{One,Two,Three,Four,Five,Six,Seven,Eight,Nine,Ten}
+    bspc window -d "focused:^{1-9,10}"
 
 super + !button{1,3}
     bspc pointer -t %i %i
 
+super + @button{1,3}
+    bspc pointer -u
+
 super + button{1,3}
     bspc pointer -g {move,resize_corner}
 
-~button1
+~button{1,3}
     bspc pointer -g focus
 
 super + p

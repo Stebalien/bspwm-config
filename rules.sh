@@ -1,11 +1,13 @@
 #!/bin/bash
 
-case "$(xwinfo -i $1)" in
+case "$3" in
     pithos)
-        #echo "desktop=$([[ $(bspc query -M | wc -l) -gt 1 ]] && echo '^1' || echo 'next.free')" ;;
-        echo "desktop=1/Ten" ;;
+        lastmon=$(bspc query -M | tail -1)
+        echo "desktop=$( [[ $lastmon -gt 1 ]] && echo "$lastmon:^1" || echo 'next.free')" ;;
     mpv|keepassx)
         echo "floating=on" ;;
+    display)
+        echo "center=on floating=on focus=on sticky=on" ;;
     dropterm|crx_nckgahadagoaajjgafhacjanaoiihapd)
         echo "floating=on sticky=on" ;;
 esac
