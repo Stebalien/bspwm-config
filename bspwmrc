@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$XDG_CONFIG_HOME/colors.sh"
+
 # Settings
 bspc config border_width                  2
 bspc config normal_border_color           "#555555"
