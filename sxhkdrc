@@ -1,83 +1,67 @@
 super + shift + {h,j,k,l}
-    dir={left,down,up,right}; \
-    bspc window $dir -w focused.manual || \
-    bspc window -w $dir.manual || \
-    bspc window -s $dir
+    dir={west,south,north,east}; \
+    bspc node $dir -n 'focused.!automatic' || \
+    bspc node -n ${dir}.'!automatic' || \
+    bspc node -s $dir
 
 super + m
-    bspc window -w last.manual
+    bspc node -n last.'!automatic'
 
-super + t ; {s,t,m,f}
-    bspc window -t {sticky,floating,fullscreen,private}
+super + t ; {t,f,m}
+    bspc node -t '~'{tiled,floating,fullscreen}
 
 super + b
-    bspc window -s biggest
+    bspc node -s biggest
 
 super + grave
     bspc desktop -f last
 
-super + {h,j,k,l}
-    bspc window -f {left,down,up,right}
+super + {h,j,k,l,u,i,o}
+    bspc node -f {west,south,north,east,@parent,@first,@second}
 
 super + control + {h,j,k,l}
-    {D1=left;D2=right;INC=-10;,D1=down;D2=up;INC=+10;,D1=up;D2=down;INC=-10;,D1=right;D2=left;INC=+10;} \
-    bspc window -e $D1 $INC || bspc window -e $D2 $INC
+    {D1=west;D2=east;INC=-10;,D1=south;D2=north;INC=+10;,D1=north;D2=south;INC=-10;,D1=east;D2=west;INC=+10;} \
+    bspc node @$D1 -r $INC || bspc node @$D2 -r $INC
 
-super + control + alt + {h,j,k,l}
-    bspc window -e {left +10,down -10,up +10,right -10}
+#super + control + {h,j,k,l}
+#    {D=left;X=-10;Y=0;,D=bottom;X=0;Y=+10;,D=top;X=0;Y=-10;,D=right;X=+10;Y=0;} \
+#    bspc node -z $D $X $Y
+#
+#super + control + shift + {h,j,k,l}
+#    {D=left;X=+10;Y=0;,D=bottom;X=0;Y=-10;,D=top;X=0;Y=+10;,D=right;X=-10;Y=0;} \
+#    bspc node -z $D $X $Y
 
 super + Tab
-    bspc window -f next
+    bspc node -f next
 
 super + alt + {h,j,k,l}
-    bspc window -p {left,down,up,right}
+    bspc node -p ~{west,south,north,east}
 
 super + control + r
     bspc quit 0;
 
 super + q
-    bspc window -c
+    bspc node -c
 
 super + control + q
-    bspc window -k
+    bspc node -k
 
-super + {o,i}
-    bspc desktop -f {next,prev}.occupied
-
-super + shift + {o,i}
-    bspc window -d {next,prev}
-
-super + ctrl + {o,i}
+super + ctrl + {n,p}
     bspc monitor -f {next,prev}
 
-super + ctrl + shift + {o,i}
-    bspc window -m {next,prev} -f
+super + ctrl + shift + {n,p}
+    bspc node -m {next,prev} -f
 
 super + {Right,Left}
     bspc desktop -f {next,prev}.occupied
 
 super + shift + {Right,Left}
-    bspc window -d {next,prev} -f
+    bspc node -d {next,prev} -f
 
 super + {1-9,0}
-    bspc desktop -f "focused:^{1-9,10}"
+    bspc desktop -f 'focused:^{1-9,10}.!focused' || bspc desktop -f 'last'
 
 super + shift + {1-9,0}
-    bspc window -d "focused:^{1-9,10}"
-
-super + !button{1,3}
-    bspc pointer -t %i %i
-
-super + @button{1,3}
-    bspc pointer -u
-
-super + button{1,3}
-    bspc pointer -g {move,resize_corner}
-
-~button{1,3}
-    bspc pointer -g focus
-
-super + p
-    bspc window -t private
+    bspc node -d "focused:^{1-9,10}"
 
 # vim: set ft=sxhkdrc foldmethod=marker :
